@@ -1,0 +1,18 @@
+.overlay {
+  position: fixed;
+  background-color: rgba(59, 189, 168, 0.3);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.overlay-inner {
+  margin: 15%;
+  background-color: white;
+  height: 40%;
+  width: 60%;
+  border: black 2px solid;
+  border-radius: 15px;
+}

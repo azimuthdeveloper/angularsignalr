@@ -1,0 +1,52 @@
+<h3>Welcome to <i>Excellent</i> Restaurant!</h3>
+<i>Our menu is a little bit reduced at the moment. Please bear with us.</i>
+<p>
+  <b>What is the customers' table number?</b></p>
+<input placeholder="Table Number" [(ngModel)]="tableNumber" type="number">
+<p>
+  <b>What would they like to eat?</b>
+</p>
+
+<div style="width: 100%;height: 100%;display: flex;flex-wrap: wrap;gap: 5px;padding-bottom: 100px;">
+  @for (food of availableFood(); track food.id) {
+    <div style="width: 45%;margin: 0 10px;text-align: center;border: black 2px solid;border-radius: 10px;"><img [src]="food.imageUrl" [alt]="food.description">
+      <p>
+        <i>{{ food.description }}</i>
+      </p>
+      <button [disabled]="!tableNumber" (click)="sendOrder(food.id, tableNumber!)">Order {{ food.name }}</button>
+    </div>
+  }
+</div>
+
+@if (showActiveOrders) {
+  <div class="overlay">
+    <div class="overlay-inner">
+      <h3 style="text-align: center">Active orders</h3>
+      <ul>
+        @for (order of activeOrders(); track order) {
+          <li>{{ order.foodItem.name }} for table {{ order.tableNumber }}. Status: {{ order.orderState }}</li>
+        }
+      </ul>
+
+      <button (click)="showActiveOrdersToggle()">Hide Orders</button>
+    </div>
+  </div>
+}
+
+@if (needsLogin){
+  <div class="overlay">
+    <div class="overlay-inner" style="display: flex; flex-direction: column; gap: 10px; padding: 20px;">
+      <h3>
+        Login
+      </h3>
+      <input [(ngModel)]="login" placeholder="Username">
+      <input [(ngModel)]="password" type="password" placeholder="Password">
+      <button (click)="doLogin(login, password)">Login</button>
+    </div>
+  </div>
+}
+
+<div
+  style="height: 50px; background-color: rgba(86,157,238,0.8); width: 100%; position:fixed; bottom: 0; left:0; right: 0; display: flex; justify-content: center; align-content: center">
+  <button (click)="showActiveOrdersToggle()">Show Active Orders</button>
+</div>
